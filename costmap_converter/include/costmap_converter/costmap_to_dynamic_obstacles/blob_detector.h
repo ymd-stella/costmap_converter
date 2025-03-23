@@ -103,6 +103,14 @@ protected:
   virtual void findBlobs(const cv::Mat& image, const cv::Mat& binary_image, std::vector<Center>& centers,
                          std::vector<std::vector<cv::Point>>& cur_contours) const;
 
+#if CV_MAJOR_VERSION >= 4 && CV_MINOR_VERSION >= 7
+  void setParams(const SimpleBlobDetector::Params& params) override {
+    params_ = params;
+  }
+
+  SimpleBlobDetector::Params getParams() const override { return params_; }
+#endif
+
   std::vector<std::vector<cv::Point>> contours_;
 
   Params params_;
